@@ -56,10 +56,16 @@ export default function POS() {
   const [customerId, setCustomerId] = useState('');
   const [guestName, setGuestName] = useState('');
   const [guestPhone, setGuestPhone] = useState('');
+  const [tin, setTin] = useState('');
+  const [businessAddress, setBusinessAddress] = useState('');
+  const [withholdingTaxRate, setWithholdingTaxRate] = useState('0');
   const [paymentMethod, setPaymentMethod] = useState('cash');
   const [discount, setDiscount] = useState('0');
   const [successModalOpen, setSuccessModalOpen] = useState(false);
   const [lastOrder, setLastOrder] = useState<Order | null>(null);
+  const [lastTin, setLastTin] = useState('');
+  const [lastBusinessAddress, setLastBusinessAddress] = useState('');
+  const [lastWithholdingTaxRate, setLastWithholdingTaxRate] = useState(0);
   const [isProcessingTerminal, setIsProcessingTerminal] = useState(false);
 
   const fetchData = async () => {
@@ -122,6 +128,10 @@ export default function POS() {
 
   const handleCheckout = async () => {
     if (cart.length === 0) return;
+    if (!tin.trim() || !businessAddress.trim()) {
+      alert('TIN and Business Address are required for the sales invoice.');
+      return;
+    }
     try {
       if (paymentMethod === 'card') {
         setIsProcessingTerminal(true);
@@ -156,11 +166,17 @@ export default function POS() {
       
       const res = await api.post('/api/orders', payload);
       setLastOrder(res.data.order);
+      setLastTin(tin);
+      setLastBusinessAddress(businessAddress);
+      setLastWithholdingTaxRate(parseFloat(withholdingTaxRate) || 0);
       setCart([]);
       setCheckoutModalOpen(false);
       setSuccessModalOpen(true);
       setGuestName('');
       setGuestPhone('');
+      setTin('');
+      setBusinessAddress('');
+      setWithholdingTaxRate('0');
       fetchData(); // Refresh stock and meta
     } catch (err: unknown) {
       const axiosError = err as { response?: { data?: { error?: string, details?: string } } };
@@ -389,6 +405,11 @@ export default function POS() {
             </div>
           )}
           <div className="grid grid-cols-2 gap-3">
+            <FormField label="TIN" value={tin} onChange={setTin} required placeholder="000-000-000-000" />
+            <FormField label="Business Address" value={businessAddress} onChange={setBusinessAddress} required placeholder="Full business address" />
+          </div>
+          <FormField label="Withholding Tax Rate (%)" type="number" value={withholdingTaxRate} onChange={setWithholdingTaxRate} placeholder="e.g. 1, 2, 5" />
+          <div className="grid grid-cols-2 gap-3">
              <div className="col-span-2">
                <label className="text-xs font-black text-gray-400 uppercase tracking-widest mb-2 block">Payment Protocol</label>
                <div className="grid grid-cols-2 gap-2">
@@ -446,7 +467,7 @@ export default function POS() {
           
           <div className="grid grid-cols-2 gap-3 mb-4">
             <button
-               onClick={() => { if (lastOrder) printReceipt(lastOrder); setSuccessModalOpen(false); }}
+               onClick={() => { if (lastOrder) printReceipt(lastOrder, lastTin, lastBusinessAddress, lastWithholdingTaxRate); setSuccessModalOpen(false); }}
                className="flex items-center justify-center gap-2 py-3 bg-gray-900 text-white rounded-xl text-xs font-black uppercase tracking-widest hover:bg-gray-800 transition-all"
             >
               <Printer className="w-4 h-4" />
