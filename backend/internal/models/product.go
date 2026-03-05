@@ -10,6 +10,7 @@ type Product struct {
 	Name        string  `gorm:"size:255;not null" json:"name"`
 	Description string  `gorm:"type:text" json:"description"`
 	Price       float64 `gorm:"not null;default:0" json:"price"`
+	CostPrice   float64 `gorm:"not null;default:0" json:"cost_price"` // How much you pay the supplier
 	Stock       int     `gorm:"not null;default:0" json:"stock"`
 	Size        string  `gorm:"size:50" json:"size"` // e.g., "225/45 R17"
 	ParentID    *uint   `gorm:"index" json:"parent_id"`

@@ -14,6 +14,8 @@ import Orders from './pages/Orders';
 import Expenses from './pages/Expenses';
 import ActivityLogs from './pages/ActivityLogs';
 import POS from './pages/POS';
+import Suppliers from './pages/Suppliers';
+import PurchaseOrders from './pages/PurchaseOrders';
 
 function App() {
   return (
@@ -34,6 +36,8 @@ function App() {
             <Route path="/customers" element={<Customers />} />
             <Route path="/orders" element={<Orders />} />
             <Route path="/expenses" element={<Expenses />} />
+            <Route path="/suppliers" element={<Suppliers />} />
+            <Route path="/purchase-orders" element={<PurchaseOrders />} />
             <Route path="/logs" element={<ActivityLogs />} />
             <Route path="/pos" element={<POS />} />
           </Route>

@@ -12,17 +12,19 @@ import (
 
 // Handlers holds all handler instances.
 type Handlers struct {
-	Auth      *handlers.AuthHandler
-	Category  *handlers.CategoryHandler
-	Brand     *handlers.BrandHandler
-	Product   *handlers.ProductHandler
-	Customer  *handlers.CustomerHandler
-	Order     *handlers.OrderHandler
-	Expense   *handlers.ExpenseHandler
-	Dashboard *handlers.DashboardHandler
-	Import    *handlers.ImportHandler
-	Log       *handlers.LogHandler
-	Terminal  *handlers.TerminalHandler
+	Auth          *handlers.AuthHandler
+	Category      *handlers.CategoryHandler
+	Brand         *handlers.BrandHandler
+	Product       *handlers.ProductHandler
+	Customer      *handlers.CustomerHandler
+	Order         *handlers.OrderHandler
+	Expense       *handlers.ExpenseHandler
+	Dashboard     *handlers.DashboardHandler
+	Import        *handlers.ImportHandler
+	Log           *handlers.LogHandler
+	Terminal      *handlers.TerminalHandler
+	Supplier      *handlers.SupplierHandler
+	PurchaseOrder *handlers.PurchaseOrderHandler
 }
 
 // Setup configures all API routes.
@@ -131,6 +133,26 @@ func Setup(router *gin.Engine, cfg *config.Config, h *Handlers) {
 
 			// Terminal
 			admin.POST("/terminal/payment", h.Terminal.ProcessPayment)
+		}
+
+		// ─── Suppliers ───
+		suppliers := protected.Group("/suppliers")
+		{
+			suppliers.GET("", h.Supplier.List)
+			suppliers.GET("/:id", h.Supplier.GetByID)
+			suppliers.POST("", h.Supplier.Create)
+			suppliers.PUT("/:id", h.Supplier.Update)
+			suppliers.DELETE("/:id", h.Supplier.Delete)
+		}
+
+		// ─── Purchase Orders ───
+		purchaseOrders := protected.Group("/purchase-orders")
+		{
+			purchaseOrders.GET("", h.PurchaseOrder.List)
+			purchaseOrders.GET("/:id", h.PurchaseOrder.GetByID)
+			purchaseOrders.POST("", h.PurchaseOrder.Create)
+			purchaseOrders.PUT("/:id/receive", h.PurchaseOrder.Receive)
+			purchaseOrders.DELETE("/:id", h.PurchaseOrder.Delete)
 		}
 	}
 }

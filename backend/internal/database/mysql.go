@@ -45,6 +45,9 @@ func Connect(cfg *config.Config) {
 		&models.OrderItem{},
 		&models.Expense{},
 		&models.ActivityLog{},
+		&models.Supplier{},
+		&models.PurchaseOrder{},
+		&models.PurchaseOrderItem{},
 	); err != nil {
 		log.Fatalf("Failed to auto-migrate: %v", err)
 	}
