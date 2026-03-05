@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import api from '../api/axios';
 import Modal from '../components/Modal';
 import FormField from '../components/FormField';
+import { printReceipt } from '../components/Receipt';
 import { Search, ShoppingCart, Trash2, Printer, CheckCircle, Package } from 'lucide-react';
 
 interface Product {
@@ -445,7 +446,7 @@ export default function POS() {
           
           <div className="grid grid-cols-2 gap-3 mb-4">
             <button
-               onClick={() => { window.print(); setSuccessModalOpen(false); }}
+               onClick={() => { if (lastOrder) printReceipt(lastOrder); setSuccessModalOpen(false); }}
                className="flex items-center justify-center gap-2 py-3 bg-gray-900 text-white rounded-xl text-xs font-black uppercase tracking-widest hover:bg-gray-800 transition-all"
             >
               <Printer className="w-4 h-4" />
@@ -460,73 +461,6 @@ export default function POS() {
           </div>
         </div>
 
-        {/* Hidden Printable Receipt */}
-        {lastOrder && (
-          <div className="hidden">
-            <div id="printable-invoice" className="p-8 text-gray-900 font-sans">
-              <div className="text-center mb-6">
-                <h1 className="text-2xl font-black">SM TYRE DEPOT</h1>
-                <p className="text-xs font-bold uppercase tracking-widest">Premium Auto Care & Tyres</p>
-                <div className="mt-4 border-t border-b border-gray-900 py-2">
-                  <h2 className="text-lg font-bold">SALES RECEIPT</h2>
-                  <p className="text-sm">Order #{lastOrder.id}</p>
-                </div>
-              </div>
-
-              <div className="mb-6">
-                <p className="text-sm font-bold">Date: {new Date(lastOrder.created_at).toLocaleDateString()}</p>
-                <p className="text-sm">Payment: {lastOrder.payment_method.toUpperCase()}</p>
-                {lastOrder.customer ? (
-                  <p className="text-sm">Customer: {lastOrder.customer.name}</p>
-                ) : lastOrder.guest_name ? (
-                  <div className="mt-2 text-sm border-t border-gray-100 pt-2">
-                    <p className="font-bold">Walk-in Customer:</p>
-                    <p>{lastOrder.guest_name}</p>
-                    {lastOrder.guest_phone && <p>{lastOrder.guest_phone}</p>}
-                  </div>
-                ) : (
-                  <p className="text-sm">Customer: WALK-IN</p>
-                )}
-              </div>
-
-              <table className="w-full mb-6 text-sm">
-                <thead>
-                  <tr className="border-b-2 border-gray-900">
-                    <th className="py-2 text-left">Item</th>
-                    <th className="py-2 text-center">Qty</th>
-                    <th className="py-2 text-right">Price</th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-gray-100">
-                  {lastOrder.items?.map((item: OrderItem) => (
-                    <tr key={item.id}>
-                      <td className="py-2 font-bold">{item.product?.name}</td>
-                      <td className="py-2 text-center">{item.quantity}</td>
-                      <td className="py-2 text-right">₱{item.subtotal.toLocaleString()}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-
-              <div className="border-t-2 border-gray-900 pt-4 text-right">
-                <p className="text-sm text-gray-500">Discount: ₱{lastOrder.discount_amount?.toLocaleString()}</p>
-                <p className="text-xl font-black">Total: ₱{lastOrder.total_amount.toLocaleString()}</p>
-              </div>
-
-              <div className="mt-12 text-center text-[10px] font-bold text-gray-400 uppercase tracking-widest">
-                Thank you for choosing SM Tyre Depot!<br/>
-                Please keep this for your records.
-              </div>
-            </div>
-            <style dangerouslySetInnerHTML={{ __html: `
-              @media print {
-                body * { visibility: hidden; }
-                #printable-invoice, #printable-invoice * { visibility: visible; }
-                #printable-invoice { position: absolute; left: 0; top: 0; width: 100%; }
-              }
-            `}} />
-          </div>
-        )}
       </Modal>
     </div>
   );
