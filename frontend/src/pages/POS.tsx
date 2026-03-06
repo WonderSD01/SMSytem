@@ -446,7 +446,7 @@ export default function POS() {
           
           <div className="grid grid-cols-2 gap-3 mb-4">
             <button
-               onClick={() => { if (lastOrder) printReceipt(lastOrder); setSuccessModalOpen(false); }}
+               onClick={() => { if (lastOrder) printReceipt(lastOrder, undefined, lastOrder.customer?.address); setSuccessModalOpen(false); }}
                className="flex items-center justify-center gap-2 py-3 bg-gray-900 text-white rounded-xl text-xs font-black uppercase tracking-widest hover:bg-gray-800 transition-all"
             >
               <Printer className="w-4 h-4" />
