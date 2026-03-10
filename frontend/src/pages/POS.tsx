@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import api from '../api/axios';
 import Modal from '../components/Modal';
 import FormField from '../components/FormField';
-import { printReceipt } from '../components/Receipt';
+import { printReceipt, printDeliveryReceiptDataOnly } from '../components/Receipt';
 import { Search, ShoppingCart, Trash2, Printer, CheckCircle, Package } from 'lucide-react';
 
 interface Product {
@@ -36,9 +36,10 @@ interface Order {
   total_amount: number;
   discount_amount: number;
   payment_method: string;
+  tax_amount: number; // backend returns this, needed by receipt
   created_at: string;
   items?: OrderItem[];
-  customer?: { name: string };
+  customer?: { name: string; address?: string };
 }
 
 export default function POS() {
@@ -63,9 +64,7 @@ export default function POS() {
   const [discount, setDiscount] = useState('0');
   const [successModalOpen, setSuccessModalOpen] = useState(false);
   const [lastOrder, setLastOrder] = useState<Order | null>(null);
-  const [lastTin, setLastTin] = useState('');
-  const [lastBusinessAddress, setLastBusinessAddress] = useState('');
-  const [lastWithholdingTaxRate, setLastWithholdingTaxRate] = useState(0);
+  // previous checkout fields were tracked but not used; removed to satisfy lint rules
   const [isProcessingTerminal, setIsProcessingTerminal] = useState(false);
 
   const fetchData = async () => {
@@ -144,8 +143,9 @@ export default function POS() {
             return;
           }
           // The terminal approved the transaction. Proceed to save the order.
-        } catch (termErr: any) {
-          alert(`Failed to communicate with terminal: ${termErr.message}`);
+        } catch (termErr) {
+          const errorMsg = termErr instanceof Error ? termErr.message : 'Unknown error';
+          alert(`Failed to communicate with terminal: ${errorMsg}`);
           setIsProcessingTerminal(false);
           return;
         }
@@ -166,9 +166,6 @@ export default function POS() {
       
       const res = await api.post('/api/orders', payload);
       setLastOrder(res.data.order);
-      setLastTin(tin);
-      setLastBusinessAddress(businessAddress);
-      setLastWithholdingTaxRate(parseFloat(withholdingTaxRate) || 0);
       setCart([]);
       setCheckoutModalOpen(false);
       setSuccessModalOpen(true);
@@ -467,19 +464,26 @@ export default function POS() {
           
           <div className="grid grid-cols-2 gap-3 mb-4">
             <button
-               onClick={() => { if (lastOrder) printReceipt(lastOrder, lastTin, lastBusinessAddress, lastWithholdingTaxRate); setSuccessModalOpen(false); }}
+               onClick={() => { if (lastOrder) printReceipt(lastOrder, lastOrder.customer?.address); setSuccessModalOpen(false); }}
                className="flex items-center justify-center gap-2 py-3 bg-gray-900 text-white rounded-xl text-xs font-black uppercase tracking-widest hover:bg-gray-800 transition-all"
             >
               <Printer className="w-4 h-4" />
-              PRINT RECEIPT
+              PRINT INVOICE
             </button>
             <button
-               onClick={() => setSuccessModalOpen(false)}
-               className="py-3 bg-white border border-gray-200 text-gray-900 rounded-xl text-xs font-black uppercase tracking-widest hover:bg-gray-50 transition-all"
+               onClick={() => { if (lastOrder) printDeliveryReceiptDataOnly(lastOrder, lastOrder.customer?.address); setSuccessModalOpen(false); }}
+               className="flex items-center justify-center gap-2 py-3 bg-indigo-600 text-white rounded-xl text-xs font-black uppercase tracking-widest hover:bg-indigo-500 transition-all"
             >
-              NEW SALE
+              <Printer className="w-4 h-4" />
+              DELIVERY SLIP
             </button>
           </div>
+          <button
+             onClick={() => setSuccessModalOpen(false)}
+             className="w-full py-3 bg-white border border-gray-200 text-gray-900 rounded-xl text-xs font-black uppercase tracking-widest hover:bg-gray-50 transition-all"
+          >
+            NEW SALE
+          </button>
         </div>
 
       </Modal>

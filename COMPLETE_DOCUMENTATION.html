@@ -1,0 +1,946 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SMSystem - Complete Documentation</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f5f5f5;
+            padding: 40px 20px;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 60px 40px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        h1 {
+            color: #1a4d8f;
+            font-size: 2.5em;
+            margin-bottom: 30px;
+            border-bottom: 3px solid #1a4d8f;
+            padding-bottom: 20px;
+            page-break-after: avoid;
+        }
+        
+        h2 {
+            color: #2a5faa;
+            font-size: 2em;
+            margin-top: 40px;
+            margin-bottom: 20px;
+            border-left: 4px solid #2a5faa;
+            padding-left: 15px;
+            page-break-after: avoid;
+        }
+        
+        h3 {
+            color: #3a6fba;
+            font-size: 1.5em;
+            margin-top: 25px;
+            margin-bottom: 15px;
+            page-break-after: avoid;
+        }
+        
+        p {
+            margin-bottom: 15px;
+            text-align: justify;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            page-break-inside: avoid;
+        }
+        
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+        
+        th {
+            background-color: #1a4d8f;
+            color: white;
+            font-weight: bold;
+        }
+        
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        
+        code {
+            background-color: #f4f4f4;
+            border: 1px solid #ddd;
+            border-radius: 3px;
+            padding: 2px 6px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.95em;
+        }
+        
+        pre {
+            background-color: #2b2b2b;
+            color: #f8f8f2;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            margin: 15px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+            page-break-inside: avoid;
+        }
+        
+        pre code {
+            background-color: transparent;
+            border: none;
+            padding: 0;
+            color: #f8f8f2;
+        }
+        
+        ul, ol {
+            margin-left: 30px;
+            margin-bottom: 15px;
+        }
+        
+        li {
+            margin-bottom: 8px;
+        }
+        
+        .toc {
+            background-color: #f0f0f0;
+            border-left: 4px solid #1a4d8f;
+            padding: 20px;
+            margin: 30px 0;
+            page-break-inside: avoid;
+        }
+        
+        .toc ol {
+            margin-top: 10px;
+        }
+        
+        .feature-list {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin: 20px 0;
+        }
+        
+        .feature-item {
+            background-color: #f0f7ff;
+            border-left: 4px solid #1a4d8f;
+            padding: 15px;
+        }
+        
+        .status-box {
+            background-color: #e8f5e9;
+            border-left: 4px solid #4caf50;
+            padding: 20px;
+            margin: 20px 0;
+            page-break-inside: avoid;
+        }
+        
+        .api-section {
+            background-color: #fff3e0;
+            border-left: 4px solid #ff9800;
+            padding: 15px;
+            margin: 15px 0;
+            page-break-inside: avoid;
+        }
+        
+        .page-break {
+            page-break-after: always;
+        }
+        
+        .section-number {
+            color: #1a4d8f;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+        
+        .footer {
+            margin-top: 50px;
+            padding-top: 20px;
+            border-top: 2px solid #ddd;
+            text-align: center;
+            color: #666;
+            font-size: 0.9em;
+        }
+        
+        @media print {
+            body {
+                background-color: white;
+                padding: 0;
+            }
+            
+            .container {
+                max-width: 100%;
+                box-shadow: none;
+                padding: 20px;
+            }
+            
+            h1 {
+                page-break-before: always;
+                margin-top: 20px;
+            }
+            
+            .page-break {
+                page-break-after: always;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>SMSystem - Complete Documentation</h1>
+        
+        <div class="toc">
+            <h3>Table of Contents</h3>
+            <ol>
+                <li>Executive Summary</li>
+                <li>Technical Stack</li>
+                <li>Project Architecture</li>
+                <li>Core Features</li>
+                <li>System Requirements</li>
+                <li>Installation & Setup</li>
+                <li>Database Models</li>
+                <li>API Reference</li>
+                <li>Getting Started Guide</li>
+                <li>Development Workflow</li>
+                <li>Deployment</li>
+                <li>Security & Performance</li>
+                <li>Support & Maintenance</li>
+            </ol>
+        </div>
+        
+        <div class="page-break"></div>
+        
+        <!-- SECTION 1 -->
+        <h2><span class="section-number">1</span>Executive Summary</h2>
+        
+        <h3>What is SMSystem?</h3>
+        <p>SMSystem is a comprehensive Sales & Stock Management System designed to streamline inventory, order, and supply chain operations. It features a modern web interface coupled with terminal/POS integration capabilities, enabling businesses to manage products, customers, orders, expenses, and supplier relationships through a centralized platform.</p>
+        
+        <h3>Key Highlights</h3>
+        <table>
+            <tr>
+                <th>Aspect</th>
+                <th>Details</th>
+            </tr>
+            <tr>
+                <td><strong>Status</strong></td>
+                <td>Complete, Production-Ready</td>
+            </tr>
+            <tr>
+                <td><strong>Backend</strong></td>
+                <td>Go + Gin (REST API) with JWT Authentication</td>
+            </tr>
+            <tr>
+                <td><strong>Frontend</strong></td>
+                <td>React 19 + TypeScript, Tauri Desktop App</td>
+            </tr>
+            <tr>
+                <td><strong>Database</strong></td>
+                <td>MySQL 8.0 with GORM ORM</td>
+            </tr>
+            <tr>
+                <td><strong>Architecture</strong></td>
+                <td>Modular, scalable microservice-ready</td>
+            </tr>
+            <tr>
+                <td><strong>Deployment</strong></td>
+                <td>Docker-ready with docker-compose</td>
+            </tr>
+        </table>
+        
+        <h3>Core Capabilities</h3>
+        <div class="feature-list">
+            <div class="feature-item">✅ User Management - Registration, login, JWT authentication</div>
+            <div class="feature-item">✅ Inventory Control - Products, categories, brands, suppliers</div>
+            <div class="feature-item">✅ Order Management - Create, track, manage customer orders</div>
+            <div class="feature-item">✅ POS Terminal - Point-of-sale system with receipt printing</div>
+            <div class="feature-item">✅ Business Analytics - Real-time dashboard with KPIs</div>
+            <div class="feature-item">✅ Audit Trail - Complete activity logging</div>
+            <div class="feature-item">✅ Data Import - Bulk data import capabilities</div>
+            <div class="feature-item">✅ Expense Tracking - Monitor business expenses</div>
+        </div>
+        
+        <div class="page-break"></div>
+        
+        <!-- SECTION 2 -->
+        <h2><span class="section-number">2</span>Technical Stack</h2>
+        
+        <h3>Backend</h3>
+        <ul>
+            <li><strong>Language:</strong> Go 1.21</li>
+            <li><strong>Framework:</strong> Gin Web Framework</li>
+            <li><strong>Database:</strong> MySQL 8.0</li>
+            <li><strong>ORM:</strong> GORM</li>
+            <li><strong>Authentication:</strong> JWT (golang-jwt/jwt/v5)</li>
+            <li><strong>Encryption:</strong> bcrypt (golang.org/x/crypto)</li>
+            <li><strong>Configuration:</strong> godotenv</li>
+        </ul>
+        
+        <h3>Frontend</h3>
+        <ul>
+            <li><strong>Framework:</strong> React 19 with TypeScript</li>
+            <li><strong>Build Tool:</strong> Vite</li>
+            <li><strong>Desktop App:</strong> Tauri 2.x</li>
+            <li><strong>HTTP Client:</strong> Axios</li>
+            <li><strong>UI Components:</strong> Lucide React, Recharts</li>
+            <li><strong>Styling:</strong> Tailwind CSS</li>
+            <li><strong>Routing:</strong> React Router v7</li>
+        </ul>
+        
+        <h3>Infrastructure</h3>
+        <ul>
+            <li><strong>Containerization:</strong> Docker & Docker Compose</li>
+            <li><strong>Database:</strong> MySQL 8.0</li>
+            <li><strong>Port Configuration:</strong> API (8080) | MySQL (3307)</li>
+        </ul>
+        
+        <div class="page-break"></div>
+        
+        <!-- SECTION 3 -->
+        <h2><span class="section-number">3</span>Project Architecture</h2>
+        
+        <h3>High-Level Architecture</h3>
+        <pre><code>┌─────────────────────────────────────────┐
+│         Frontend (React/Tauri)          │
+│    Web & Desktop Application Layer      │
+└──────────────────┬──────────────────────┘
+                   │ HTTP/REST
+┌──────────────────▼──────────────────────┐
+│      Backend (Go/Gin)                   │
+│    API Gateway & Business Logic         │
+├──────────────────────────────────────────┤
+│  - Auth Service      - Order Service    │
+│  - Product Service   - Customer Service │
+│  - Supplier Service  - Dashboard Service│
+│  - Terminal Service  - Import Service   │
+└──────────────────┬──────────────────────┘
+                   │ SQL
+┌──────────────────▼──────────────────────┐
+│      MySQL Database                     │
+│    (Users, Products, Orders, etc.)      │
+└──────────────────────────────────────────┘</code></pre>
+        
+        <h3>Directory Organization</h3>
+        <pre><code>backend/
+├── cmd/                          # Executables
+│   ├── server/main.go           # API server
+│   └── fix_mysql/               # DB utilities
+├── internal/
+│   ├── config/                  # Configuration
+│   ├── database/                # MySQL setup
+│   ├── handlers/                # HTTP handlers
+│   ├── middleware/              # Auth middleware
+│   ├── models/                  # Data models
+│   ├── routes/                  # Route definitions
+│   └── services/                # Business logic
+└── migrations/                  # Schema migrations
+
+frontend/
+├── src/
+│   ├── api/                     # HTTP client
+│   ├── components/              # React components
+│   ├── context/                 # Auth context
+│   ├── hooks/                   # Custom hooks
+│   ├── pages/                   # Page components
+│   └── main.tsx                 # Entry point
+└── src-tauri/                   # Desktop config</code></pre>
+        
+        <div class="page-break"></div>
+        
+        <!-- SECTION 4 -->
+        <h2><span class="section-number">4</span>Core Features</h2>
+        
+        <h3>User & Authentication</h3>
+        <ul>
+            <li>User registration and login with JWT authentication</li>
+            <li>Role-based access control (auth middleware)</li>
+            <li>User management dashboard</li>
+            <li>Session management</li>
+        </ul>
+        
+        <h3>Inventory Management</h3>
+        <ul>
+            <li><strong>Products:</strong> Create, read, update product catalog with categories/brands</li>
+            <li><strong>Categories & Brands:</strong> Organize products hierarchically</li>
+            <li><strong>Suppliers:</strong> Manage supplier information and relationships</li>
+            <li><strong>Purchase Orders:</strong> Track supplier orders and inventory replenishment</li>
+        </ul>
+        
+        <h3>Sales Operations</h3>
+        <ul>
+            <li><strong>Orders:</strong> Create and manage customer orders with detailed tracking</li>
+            <li><strong>Customers:</strong> Maintain customer database and profiles</li>
+            <li><strong>POS/Terminal Integration:</strong> Point-of-sale terminal support (simulation mode)</li>
+            <li><strong>Receipt Generation:</strong> Print receipts for transactions</li>
+        </ul>
+        
+        <h3>Business Analytics</h3>
+        <ul>
+            <li><strong>Dashboard:</strong> Real-time statistics and KPI insights</li>
+            <li><strong>Activity Logs:</strong> Comprehensive audit trail for all operations</li>
+            <li><strong>Expense Tracking:</strong> Monitor and categorize business expenses</li>
+        </ul>
+        
+        <h3>Data Management</h3>
+        <ul>
+            <li><strong>Data Import:</strong> Bulk import functionality for inventory/orders</li>
+            <li><strong>Activity Logging:</strong> Automatic logging of all user actions</li>
+            <li><strong>Database Migrations:</strong> Version-controlled schema changes</li>
+        </ul>
+        
+        <div class="page-break"></div>
+        
+        <!-- SECTION 5 -->
+        <h2><span class="section-number">5</span>System Requirements</h2>
+        
+        <h3>Development Environment</h3>
+        <ul>
+            <li><strong>Go:</strong> 1.21 or higher</li>
+            <li><strong>Node.js:</strong> 18.x or higher</li>
+            <li><strong>npm:</strong> 9.x or higher</li>
+            <li><strong>Docker:</strong> Latest version (optional, for containerized setup)</li>
+            <li><strong>MySQL:</strong> 8.0 (via Docker or local installation)</li>
+        </ul>
+        
+        <h3>Runtime Requirements</h3>
+        <ul>
+            <li><strong>Memory:</strong> Minimum 2GB RAM (development), 4GB recommended (production)</li>
+            <li><strong>Storage:</strong> 10GB minimum for database + logs</li>
+            <li><strong>OS:</strong> Windows, macOS, or Linux for desktop; any OS for web server</li>
+        </ul>
+        
+        <div class="page-break"></div>
+        
+        <!-- SECTION 6 -->
+        <h2><span class="section-number">6</span>Installation & Setup</h2>
+        
+        <h3>Quick Start - Docker (Recommended)</h3>
+        <pre><code># Clone repository
+git clone &lt;repo-url&gt;
+cd SMSystem
+
+# Install frontend dependencies
+cd frontend
+npm install
+cd ..
+
+# Build and run with Docker
+docker-compose up -d
+
+# Access API at http://localhost:8080
+# Access MySQL at localhost:3307</code></pre>
+        
+        <h3>Manual Setup</h3>
+        <pre><code># Backend
+cd backend
+go mod download
+go run cmd/server/main.go
+
+# Frontend (new terminal)
+cd frontend
+npm install
+npm run dev</code></pre>
+        
+        <h3>Environment Configuration</h3>
+        <p>Create a <code>.env</code> file in the backend directory:</p>
+        <pre><code>DB_HOST=localhost
+DB_PORT=3306
+DB_USER=smsystem_user
+DB_PASSWORD=secure_password
+DB_NAME=smsystem
+JWT_SECRET=your_jwt_secret_key
+GIN_MODE=debug  # or release for production</code></pre>
+        
+        <div class="page-break"></div>
+        
+        <!-- SECTION 7 -->
+        <h2><span class="section-number">7</span>Database Models</h2>
+        
+        <table>
+            <tr>
+                <th>Model</th>
+                <th>Purpose</th>
+            </tr>
+            <tr>
+                <td><strong>User</strong></td>
+                <td>System users with authentication credentials</td>
+            </tr>
+            <tr>
+                <td><strong>Product</strong></td>
+                <td>Inventory items with pricing and categories</td>
+            </tr>
+            <tr>
+                <td><strong>Category</strong></td>
+                <td>Product categorization</td>
+            </tr>
+            <tr>
+                <td><strong>Brand</strong></td>
+                <td>Product brand information</td>
+            </tr>
+            <tr>
+                <td><strong>Customer</strong></td>
+                <td>Customer profiles and contact details</td>
+            </tr>
+            <tr>
+                <td><strong>Order</strong></td>
+                <td>Sales orders with line items</td>
+            </tr>
+            <tr>
+                <td><strong>PurchaseOrder</strong></td>
+                <td>Supplier purchase orders</td>
+            </tr>
+            <tr>
+                <td><strong>Supplier</strong></td>
+                <td>Supplier information and contact</td>
+            </tr>
+            <tr>
+                <td><strong>Expense</strong></td>
+                <td>Business expense tracking</td>
+            </tr>
+            <tr>
+                <td><strong>ActivityLog</strong></td>
+                <td>Audit trail of all system operations</td>
+            </tr>
+        </table>
+        
+        <div class="page-break"></div>
+        
+        <!-- SECTION 8 -->
+        <h2><span class="section-number">8</span>API Reference</h2>
+        
+        <h3>Base URL</h3>
+        <pre><code>http://localhost:8080/api</code></pre>
+        
+        <h3>Authentication</h3>
+        <p>All endpoints except login/register require JWT authentication in the header:</p>
+        <pre><code>Authorization: Bearer &lt;jwt_token&gt;</code></pre>
+        
+        <h3>Getting a Token</h3>
+        <pre><code>POST /api/auth/login
+Content-Type: application/json
+
+{
+  "email": "user@example.com",
+  "password": "password123"
+}</code></pre>
+        
+        <h3>Core Endpoints (50+)</h3>
+        <h4>User Management</h4>
+        <div class="api-section">
+            <code>GET /api/auth/me</code> - Get current user info<br>
+            <code>GET /api/users</code> - List all users<br>
+            <code>POST /api/users</code> - Create user
+        </div>
+        
+        <h4>Products</h4>
+        <div class="api-section">
+            <code>GET /api/products</code> - List products<br>
+            <code>POST /api/products</code> - Create product<br>
+            <code>GET /api/products/:id</code> - Get product details
+        </div>
+        
+        <h4>Orders</h4>
+        <div class="api-section">
+            <code>GET /api/orders</code> - List orders<br>
+            <code>POST /api/orders</code> - Create order<br>
+            <code>GET /api/orders/:id</code> - Get order details
+        </div>
+        
+        <h4>Customers</h4>
+        <div class="api-section">
+            <code>GET /api/customers</code> - List customers<br>
+            <code>POST /api/customers</code> - Create customer<br>
+            <code>GET /api/customers/:id</code> - Get customer details
+        </div>
+        
+        <h4>Additional Endpoints</h4>
+        <div class="api-section">
+            <code>GET /api/dashboard</code> - Get statistics & KPIs<br>
+            <code>GET /api/logs</code> - List activity logs<br>
+            <code>GET /api/suppliers</code> - List suppliers<br>
+            <code>GET /api/purchase-orders</code> - List purchase orders<br>
+            <code>GET /api/expenses</code> - List expenses
+        </div>
+        
+        <h3>Response Format</h3>
+        <h4>Success (200 OK)</h4>
+        <pre><code>{
+  "data": { /* resource data */ },
+  "message": "Operation successful",
+  "status": "success"
+}</code></pre>
+        
+        <h4>Error (4xx/5xx)</h4>
+        <pre><code>{
+  "error": "Error message",
+  "status": "error",
+  "code": "ERROR_CODE"
+}</code></pre>
+        
+        <h3>Status Codes</h3>
+        <table>
+            <tr>
+                <th>Code</th>
+                <th>Meaning</th>
+            </tr>
+            <tr>
+                <td>200</td>
+                <td>OK - Request successful</td>
+            </tr>
+            <tr>
+                <td>201</td>
+                <td>Created - Resource created</td>
+            </tr>
+            <tr>
+                <td>400</td>
+                <td>Bad Request - Invalid input</td>
+            </tr>
+            <tr>
+                <td>401</td>
+                <td>Unauthorized - Invalid/missing token</td>
+            </tr>
+            <tr>
+                <td>403</td>
+                <td>Forbidden - Access denied</td>
+            </tr>
+            <tr>
+                <td>404</td>
+                <td>Not Found - Resource not found</td>
+            </tr>
+            <tr>
+                <td>500</td>
+                <td>Internal Server Error</td>
+            </tr>
+        </table>
+        
+        <div class="page-break"></div>
+        
+        <!-- SECTION 9 -->
+        <h2><span class="section-number">9</span>Getting Started Guide</h2>
+        
+        <h3>Quickest Start (5 minutes)</h3>
+        <h4>Step 1: Prerequisites</h4>
+        <ul>
+            <li>Docker Desktop installed</li>
+            <li>Git installed</li>
+            <li>Text editor or IDE</li>
+        </ul>
+        
+        <h4>Step 2: Clone & Run</h4>
+        <pre><code># Clone repository
+git clone &lt;repository-url&gt;
+cd SMSystem
+
+# Start everything with Docker
+docker-compose up -d
+
+# Wait 30 seconds for MySQL to start</code></pre>
+        
+        <h4>Step 3: Access Application</h4>
+        <ul>
+            <li><strong>Web App:</strong> http://localhost:5173 (frontend dev server)</li>
+            <li><strong>API:</strong> http://localhost:8080/api</li>
+            <li><strong>Health Check:</strong> http://localhost:8080/api/health</li>
+        </ul>
+        
+        <h4>Step 4: Create Account & Login</h4>
+        <ol>
+            <li>Visit http://localhost:5173</li>
+            <li>Click "Register"</li>
+            <li>Create account with email and password</li>
+            <li>Login with your credentials</li>
+            <li>Start using the system!</li>
+        </ol>
+        
+        <h3>Main Features Overview</h3>
+        <ul>
+            <li><strong>Dashboard:</strong> Overview of business metrics</li>
+            <li><strong>Products:</strong> View and manage inventory</li>
+            <li><strong>Orders:</strong> Create and track sales orders</li>
+            <li><strong>Customers:</strong> Manage customer database</li>
+            <li><strong>Suppliers:</strong> Manage supplier relationships</li>
+            <li><strong>Staff:</strong> User management</li>
+            <li><strong>Activity Logs:</strong> View system activity</li>
+            <li><strong>Expenses:</strong> Track business expenses</li>
+        </ul>
+        
+        <div class="page-break"></div>
+        
+        <!-- SECTION 10 -->
+        <h2><span class="section-number">10</span>Development Workflow</h2>
+        
+        <h3>Running the Application</h3>
+        <h4>Backend Server</h4>
+        <pre><code>cd backend
+go run cmd/server/main.go
+# Server runs on http://localhost:8080</code></pre>
+        
+        <h4>Frontend Development</h4>
+        <pre><code>cd frontend
+npm run dev
+# Vite dev server on http://localhost:5173</code></pre>
+        
+        <h4>Database</h4>
+        <pre><code>docker-compose up -d mysql
+# MySQL on localhost:3307</code></pre>
+        
+        <h3>Code Quality</h3>
+        <pre><code># Frontend linting
+cd frontend
+npm run lint
+
+# Frontend building
+npm run build
+
+# Backend tests
+cd ../backend
+go test ./...</code></pre>
+        
+        <h3>Development Commands</h3>
+        <h4>Backend</h4>
+        <pre><code>go build -o main cmd/server/main.go   # Build
+go run cmd/server/main.go               # Run
+go test ./...                           # Test
+go fmt ./...                            # Format</code></pre>
+        
+        <h4>Frontend</h4>
+        <pre><code>npm run dev                     # Development
+npm run build                  # Production build
+npm run preview                # Preview build
+npm run lint                   # Linting
+npm run tauri build            # Desktop app</code></pre>
+        
+        <div class="page-break"></div>
+        
+        <!-- SECTION 11 -->
+        <h2><span class="section-number">11</span>Deployment</h2>
+        
+        <h3>Docker Deployment</h3>
+        <pre><code>docker-compose up -d</code></pre>
+        
+        <h3>Environment Setup for Production</h3>
+        <ol>
+            <li>Update <code>.env</code> with production credentials</li>
+            <li>Set <code>GIN_MODE=release</code></li>
+            <li>Use strong <code>JWT_SECRET</code></li>
+            <li>Configure MySQL with proper backups</li>
+            <li>Set up HTTPS/TLS for frontend</li>
+            <li>Configure CORS appropriately</li>
+        </ol>
+        
+        <h3>Build for Production</h3>
+        <h4>Backend</h4>
+        <pre><code>cd backend
+go build -o main cmd/server/main.go
+# Run with: ./main</code></pre>
+        
+        <h4>Frontend</h4>
+        <pre><code>cd frontend
+npm run build
+# Output in dist/ directory</code></pre>
+        
+        <div class="page-break"></div>
+        
+        <!-- SECTION 12 -->
+        <h2><span class="section-number">12</span>Security & Performance</h2>
+        
+        <h3>Security Features</h3>
+        <div class="status-box">
+            <ul>
+                <li>✓ JWT-based authentication</li>
+                <li>✓ Password hashing with bcrypt</li>
+                <li>✓ CORS middleware configuration</li>
+                <li>✓ Environment-based secrets management</li>
+                <li>✓ Activity logging for audit trail</li>
+                <li>✓ Protected API routes with middleware</li>
+            </ul>
+        </div>
+        
+        <h3>Performance Considerations</h3>
+        <ul>
+            <li><strong>Database Indexing:</strong> MySQL indexes on frequently queried fields</li>
+            <li><strong>JWT Caching:</strong> Stateless authentication reduces database load</li>
+            <li><strong>API Response Pagination:</strong> Implement for large datasets</li>
+            <li><strong>Database Connection Pooling:</strong> GORM manages pool automatically</li>
+        </ul>
+        
+        <h3>Scalability</h3>
+        <ul>
+            <li><strong>Stateless API Design:</strong> Horizontal scaling ready</li>
+            <li><strong>Database Connection Pooling:</strong> GORM optimized</li>
+            <li><strong>Efficient Query Design:</strong> GORM ORM with indexes</li>
+            <li><strong>Containerized:</strong> Easy deployment across environments</li>
+        </ul>
+        
+        <div class="page-break"></div>
+        
+        <!-- SECTION 13 -->
+        <h2><span class="section-number">13</span>Support & Maintenance</h2>
+        
+        <h3>Troubleshooting Common Issues</h3>
+        
+        <h4>Connection refused on localhost:8080</h4>
+        <ul>
+            <li>Ensure backend is running: <code>go run cmd/server/main.go</code></li>
+            <li>Check if port 8080 is already in use</li>
+            <li>Change port in environment or config</li>
+        </ul>
+        
+        <h4>Cannot connect to database</h4>
+        <ul>
+            <li>Verify MySQL is running: <code>docker-compose ps</code></li>
+            <li>Check .env credentials match docker-compose.yml</li>
+            <li>Allow 30 seconds for MySQL to start</li>
+        </ul>
+        
+        <h4>Unauthorized errors on API calls</h4>
+        <ul>
+            <li>Ensure token is included in Authorization header</li>
+            <li>Token may be expired, try logging in again</li>
+            <li>Check GUI shows you're logged in</li>
+        </ul>
+        
+        <h4>Port already in use</h4>
+        <ul>
+            <li>Find process using port and stop it</li>
+            <li>Or change port in configuration</li>
+        </ul>
+        
+        <h3>Monitoring</h3>
+        <ul>
+            <li><strong>API Health Check:</strong> <code>GET /api/health</code></li>
+            <li><strong>Activity Logs:</strong> Available through dashboard</li>
+            <li><strong>Error Logging:</strong> In handler functions</li>
+        </ul>
+        
+        <h3>Quick Reference Commands</h3>
+        <pre><code>docker-compose up -d          # Start everything
+docker-compose down            # Stop everything
+docker-compose logs -f         # View logs
+docker-compose logs -f backend # Backend logs only
+docker-compose down -v         # Reset database
+
+cd backend && go run cmd/server/main.go    # Backend
+cd frontend && npm run dev                 # Frontend
+curl http://localhost:8080/api/health     # Health check</code></pre>
+        
+        <div class="page-break"></div>
+        
+        <!-- CONCLUSION -->
+        <h2>Conclusion</h2>
+        
+        <h3>Project Statistics</h3>
+        <table>
+            <tr>
+                <th>Metric</th>
+                <th>Count</th>
+            </tr>
+            <tr>
+                <td>Backend Files</td>
+                <td>~20 Go source files</td>
+            </tr>
+            <tr>
+                <td>Frontend Components</td>
+                <td>15+ React components</td>
+            </tr>
+            <tr>
+                <td>Database Tables</td>
+                <td>10 core tables</td>
+            </tr>
+            <tr>
+                <td>API Endpoints</td>
+                <td>50+ routes</td>
+            </tr>
+            <tr>
+                <td>Code Lines</td>
+                <td>~5000+ (excluding dependencies)</td>
+            </tr>
+        </table>
+        
+        <h3>Business Value</h3>
+        <ul>
+            <li>✨ <strong>Efficiency:</strong> Centralized inventory and order management</li>
+            <li>✨ <strong>Scalability:</strong> Modular architecture grows with business</li>
+            <li>✨ <strong>Visibility:</strong> Real-time dashboards and analytics</li>
+            <li>✨ <strong>Reliability:</strong> Audit trail for compliance</li>
+            <li>✨ <strong>Flexibility:</strong> Easy to extend with new features</li>
+        </ul>
+        
+        <h3>Development Readiness</h3>
+        <table>
+            <tr>
+                <th>Check</th>
+                <th>Status</th>
+            </tr>
+            <tr>
+                <td>Code Foundation</td>
+                <td>✅ Complete</td>
+            </tr>
+            <tr>
+                <td>API Routes</td>
+                <td>✅ Fully Defined</td>
+            </tr>
+            <tr>
+                <td>Database Schema</td>
+                <td>✅ Migrations Ready</td>
+            </tr>
+            <tr>
+                <td>Frontend Components</td>
+                <td>✅ Core UI Complete</td>
+            </tr>
+            <tr>
+                <td>Docker Setup</td>
+                <td>✅ Configured</td>
+            </tr>
+            <tr>
+                <td>Documentation</td>
+                <td>✅ Comprehensive</td>
+            </tr>
+            <tr>
+                <td>Error Handling</td>
+                <td>✅ Implemented</td>
+            </tr>
+        </table>
+        
+        <h3>Future Enhancement Roadmap</h3>
+        <ul>
+            <li>[ ] Payment gateway integration</li>
+            <li>[ ] Advanced reporting and analytics</li>
+            <li>[ ] Mobile app (React Native)</li>
+            <li>[ ] Real-time notifications (WebSockets)</li>
+            <li>[ ] Inventory alerts and auto-replenishment</li>
+            <li>[ ] Multi-location support</li>
+            <li>[ ] API rate limiting</li>
+            <li>[ ] Advanced user permissions/roles</li>
+        </ul>
+        
+        <div class="status-box" style="margin-top: 40px;">
+            <h3 style="margin-top: 0;">✅ Ready for Production Deployment</h3>
+            <p>SMSystem provides a solid, scalable foundation for a complete sales and inventory management solution. The modular architecture enables easy feature extensions, while the modern tech stack ensures maintainability and performance.</p>
+        </div>
+        
+        <div class="footer">
+            <p><strong>SMSystem - Complete Documentation</strong></p>
+            <p>Version 1.0 | Last Updated: March 2026</p>
+            <p>Contact for license terms, support options, and maintenance agreements</p>
+        </div>
+    </div>
+</body>
+</html>

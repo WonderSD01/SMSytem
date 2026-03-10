@@ -160,6 +160,7 @@ func Setup(router *gin.Engine, cfg *config.Config, h *Handlers) {
 			{
 				users.GET("", h.User.List)
 				users.PUT("/:id/role", h.User.UpdateRole)
+				users.PUT("/:id/password", h.User.UpdatePassword)
 				users.DELETE("/:id", h.User.Delete)
 			}
 		}
