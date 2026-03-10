@@ -1,5 +1,5 @@
 import { useState, useEffect, type ReactNode } from 'react';
-import { Search, Trash2, Shield, UserCog } from 'lucide-react';
+import { Search, Trash2, Shield, UserCog, Lock, AlertCircle } from 'lucide-react';
 import api from '../api/axios';
 import DataTable from '../components/DataTable';
 import Modal from '../components/Modal';
@@ -23,6 +23,12 @@ export default function Staff() {
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [userToDelete, setUserToDelete] = useState<StaffUser | null>(null);
 
+  // Password Reset Modal state
+  const [isPasswordModalOpen, setIsPasswordModalOpen] = useState(false);
+  const [userToResetPassword, setUserToResetPassword] = useState<StaffUser | null>(null);
+  const [newPassword, setNewPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
+
   const fetchUsers = async () => {
     try {
       const res = await api.get('/api/users');
@@ -42,8 +48,9 @@ export default function Staff() {
     try {
       await api.put(`/api/users/${userId}/role`, { role: newRole });
       fetchUsers();
-    } catch (error: any) {
-      alert(error.response?.data?.error || 'Failed to update user role');
+    } catch (error: unknown) {
+      const axiosError = error as { response?: { data?: { error?: string } } };
+      alert(axiosError.response?.data?.error || 'Failed to update user role');
       fetchUsers();
     }
   };
@@ -60,8 +67,44 @@ export default function Staff() {
       setIsDeleteModalOpen(false);
       setUserToDelete(null);
       fetchUsers();
-    } catch (error: any) {
-      alert(error.response?.data?.error || 'Failed to delete user');
+    } catch (error: unknown) {
+      const axiosError = error as { response?: { data?: { error?: string } } };
+      alert(axiosError.response?.data?.error || 'Failed to delete user');
+    }
+  };
+
+  const confirmResetPassword = (user: StaffUser) => {
+    setUserToResetPassword(user);
+    setNewPassword('');
+    setShowPassword(false);
+    setIsPasswordModalOpen(true);
+  };
+
+  const handleResetPassword = async () => {
+    if (!userToResetPassword || !newPassword.trim()) {
+      alert('Please enter a new password');
+      return;
+    }
+
+    if (newPassword.length < 6) {
+      alert('Password must be at least 6 characters long');
+      return;
+    }
+
+    try {
+      await api.put(`/api/users/${userToResetPassword.id}/password`, {
+        password: newPassword
+      });
+      alert(`Password for ${userToResetPassword.name} has been reset successfully.`);
+      setIsPasswordModalOpen(false);
+      setUserToResetPassword(null);
+      setNewPassword('');
+      fetchUsers();
+    } catch (error: unknown) {
+      const axiosError = error as { response?: { data?: { error?: string } } };
+      console.error('Password reset error:', error);
+      console.error('Error response:', axiosError.response?.data);
+      alert(axiosError.response?.data?.error || 'Failed to reset password');
     }
   };
 
@@ -106,7 +149,14 @@ export default function Staff() {
       key: 'actions',
       label: '',
       render: (item: StaffUser): ReactNode => (
-        <div className="flex justify-end pr-4">
+        <div className="flex justify-end pr-4 gap-2">
+          <button
+            onClick={() => confirmResetPassword(item)}
+            className="p-2 rounded-lg text-amber-500 hover:bg-amber-50 transition-colors"
+            title="Reset Password"
+          >
+            <Lock className="w-4 h-4" />
+          </button>
           <button
             onClick={() => confirmDelete(item)}
             disabled={item.id === currentUser?.id}
@@ -190,6 +240,63 @@ export default function Staff() {
             >
               <Trash2 className="w-4 h-4 mr-2" />
               Delete Account
+            </button>
+          </div>
+        </div>
+      </Modal>
+
+      <Modal
+        open={isPasswordModalOpen}
+        onClose={() => setIsPasswordModalOpen(false)}
+        title="Reset User Password"
+      >
+        <div className="space-y-4">
+          <div className="bg-blue-50 p-4 rounded-lg flex items-start">
+            <AlertCircle className="w-5 h-5 text-blue-600 mt-0.5 mr-3 flex-shrink-0" />
+            <p className="text-sm text-blue-800">
+              Set a new password for <strong>{userToResetPassword?.name}</strong>. The user can change this password after logging in with the new credentials.
+            </p>
+          </div>
+          
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-2">
+              New Password
+            </label>
+            <div className="relative">
+              <input
+                type={showPassword ? "text" : "password"}
+                value={newPassword}
+                onChange={(e) => setNewPassword(e.target.value)}
+                placeholder="Enter new password (minimum 6 characters)"
+                className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+              />
+              <button
+                type="button"
+                onClick={() => setShowPassword(!showPassword)}
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700"
+              >
+                {showPassword ? "Hide" : "Show"}
+              </button>
+            </div>
+            {newPassword && newPassword.length < 6 && (
+              <p className="text-xs text-red-600 mt-1">Password must be at least 6 characters</p>
+            )}
+          </div>
+
+          <div className="flex justify-end space-x-3 pt-4 border-t border-gray-100">
+            <button
+              onClick={() => setIsPasswordModalOpen(false)}
+              className="px-4 py-2 text-gray-700 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors font-medium"
+            >
+              Cancel
+            </button>
+            <button
+              onClick={handleResetPassword}
+              disabled={newPassword.length < 6}
+              className="px-4 py-2 text-white bg-blue-600 rounded-lg hover:bg-blue-700 transition-colors font-medium flex items-center disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              <Lock className="w-4 h-4 mr-2" />
+              Reset Password
             </button>
           </div>
         </div>
